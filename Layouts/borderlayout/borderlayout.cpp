@@ -1,86 +1,36 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
 #include "borderlayout.h"
-
-BorderLayout::BorderLayout(QWidget *parent, int margin, int spacing)
+// 构造函数
+BorderLayout::BorderLayout(QWidget *parent, int margin, int spacing)  // 构造函数
     : QLayout(parent)
 {
-    setMargin(margin);
+    setMargin(margin);  // 设置边距，设置间隔 属性边距的Setter函数。
     setSpacing(spacing);
 }
 
-BorderLayout::BorderLayout(int spacing)
+BorderLayout::BorderLayout(int spacing) //
 {
     setSpacing(spacing);
 }
 
 
-BorderLayout::~BorderLayout()
+BorderLayout::~BorderLayout()  //  析构函数，delete 布局中的元素
 {
     QLayoutItem *l;
     while ((l = takeAt(0)))
         delete l;
 }
 
-void BorderLayout::addItem(QLayoutItem *item)
+void BorderLayout::addItem(QLayoutItem *item) // 添加
 {
     add(item, West);
 }
 
-void BorderLayout::addWidget(QWidget *widget, Position position)
+void BorderLayout::addWidget(QWidget *widget, Position position) // 指定位置添加部件
 {
     add(new QWidgetItem(widget), position);
 }
 
-Qt::Orientations BorderLayout::expandingDirections() const
+Qt::Orientations BorderLayout::expandingDirections() const  // 返回一个方向
 {
     return Qt::Horizontal | Qt::Vertical;
 }
@@ -90,16 +40,16 @@ bool BorderLayout::hasHeightForWidth() const
     return false;
 }
 
-int BorderLayout::count() const
+int BorderLayout::count() const // 返回元素个数
 {
     return list.size();
 }
 
-QLayoutItem *BorderLayout::itemAt(int index) const
+QLayoutItem *BorderLayout::itemAt(int index) const // 返回元素
 {
     ItemWrapper *wrapper = list.value(index);
     if (wrapper)
-        return wrapper->item;
+        return wrapper->item;  // 返回对象
     else
         return 0;
 }
@@ -109,9 +59,9 @@ QSize BorderLayout::minimumSize() const
     return calculateSize(MinimumSize);
 }
 
-void BorderLayout::setGeometry(const QRect &rect)
+void BorderLayout::setGeometry(const QRect &rect) // 设置几何图形
 {
-    ItemWrapper *center = 0;
+    ItemWrapper *center = 0; // 定义一个类型指针
     int eastWidth = 0;
     int westWidth = 0;
     int northHeight = 0;
@@ -119,7 +69,7 @@ void BorderLayout::setGeometry(const QRect &rect)
     int centerHeight = 0;
     int i;
 
-    QLayout::setGeometry(rect);
+    QLayout::setGeometry(rect); // 此属性保存小部件相对于其父对象的几何图形，不包括窗口框架。
 
     for (i = 0; i < list.size(); ++i) {
         ItemWrapper *wrapper = list.at(i);
@@ -180,10 +130,10 @@ void BorderLayout::setGeometry(const QRect &rect)
 
 QSize BorderLayout::sizeHint() const
 {
-    return calculateSize(SizeHint);
+    return calculateSize(SizeHint);  // 计算高度
 }
 
-QLayoutItem *BorderLayout::takeAt(int index)
+QLayoutItem *BorderLayout::takeAt(int index) // 获取队列中的元素
 {
     if (index >= 0 && index < list.size()) {
         ItemWrapper *layoutStruct = list.takeAt(index);
@@ -197,7 +147,7 @@ void BorderLayout::add(QLayoutItem *item, Position position)
     list.append(new ItemWrapper(item, position));
 }
 
-QSize BorderLayout::calculateSize(SizeType sizeType) const
+QSize BorderLayout::calculateSize(SizeType sizeType) const  // 计算大小
 {
     QSize totalSize;
 

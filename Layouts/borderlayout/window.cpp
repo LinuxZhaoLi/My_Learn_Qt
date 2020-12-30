@@ -1,53 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
 #include "borderlayout.h"
 #include "window.h"
 #include <QTextBrowser>
@@ -55,10 +5,10 @@
 
 Window::Window()
 {
-    QTextBrowser *centralWidget = new QTextBrowser;
-    centralWidget->setPlainText(tr("Central widget"));
+    QTextBrowser *centralWidget = new QTextBrowser; // 创建一个浏览框
+    centralWidget->setPlainText(tr("Central widget")); // 设置内容
 
-    BorderLayout *layout = new BorderLayout;
+    BorderLayout *layout = new BorderLayout; // 布局
     layout->addWidget(centralWidget, BorderLayout::Center);
     layout->addWidget(createLabel("North"), BorderLayout::North);
     layout->addWidget(createLabel("West"), BorderLayout::West);
@@ -66,13 +16,31 @@ Window::Window()
     layout->addWidget(createLabel("East 2") , BorderLayout::East);
     layout->addWidget(createLabel("South"), BorderLayout::South);
     setLayout(layout);
+/*
+将此小部件的布局管理器设置为布局。
 
-    setWindowTitle(tr("Border Layout"));
+如果这个小部件上已经安装了布局管理器，那么QWidget将不允许您安装另一个。必须先删除现有的布局管理器（由layout（）返回），然后才能使用新布局调用setLayout（）。
+
+如果layout是另一个小部件上的布局管理器，setLayout（）将重新划分布局并使其成为该小部件的布局管理器。
+
+*/
+    setWindowTitle(tr("Border Layout")); // 边缘布局
 }
 
 QLabel *Window::createLabel(const QString &text)
 {
-    QLabel *label = new QLabel(text);
+    QLabel *label = new QLabel(text);  // 创建一个标签，指针。
     label->setFrameStyle(QFrame::Box | QFrame::Raised);
+
+    /*
+将框架样式设置为样式。
+
+样式是帧形状和帧阴影样式之间的按位或。请参见主类文档中的框架图片。
+
+框架形状在QFrame:：Shape中给出，阴影样式在QFrame:：shadow中给出。
+
+如果指定的中间线条宽度大于0，则会为凸起或凹陷的Box、HLine和VLine框架绘制一条附加线。当前颜色组的中间色用于绘制中间线。
+
+    */
     return label;
 }

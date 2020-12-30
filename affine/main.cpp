@@ -3,7 +3,7 @@
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
-** This file is part of the examples of the Qt Toolkit.
+** This file is part of the demonstration applications of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
 ** Commercial License Usage
@@ -48,21 +48,27 @@
 **
 ****************************************************************************/
 
-#include <QPushButton>
+#include "xform.h"
 
-#include "flowlayout.h"
-#include "window.h"
-//! [1]
-Window::Window()
+#include <QApplication>
+
+int main(int argc, char **argv)
 {
-    FlowLayout *flowLayout = new FlowLayout;
+    Q_INIT_RESOURCE(affine);
 
-    flowLayout->addWidget(new QPushButton(tr("Short")));
-    flowLayout->addWidget(new QPushButton(tr("Longer")));
-    flowLayout->addWidget(new QPushButton(tr("Different text")));
-    flowLayout->addWidget(new QPushButton(tr("More text")));
-    flowLayout->addWidget(new QPushButton(tr("Even longer button text")));
-    setLayout(flowLayout);
+    QApplication app(argc, argv);
 
-    setWindowTitle(tr("Flow Layout"));
+    XFormWidget xformWidget(0);
+    QStyle *arthurStyle = new ArthurStyle();
+    xformWidget.setStyle(arthurStyle);
+
+    QList<QWidget *> widgets = xformWidget.findChildren<QWidget *>();
+    foreach (QWidget *w, widgets) {
+        w->setStyle(arthurStyle);
+        w->setAttribute(Qt::WA_AcceptTouchEvents);
+    }
+
+    xformWidget.show();
+
+    return app.exec();
 }

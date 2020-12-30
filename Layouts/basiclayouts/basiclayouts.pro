@@ -7,4 +7,3 @@ SOURCES     = dialog.cpp \
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/widgets/layouts/basiclayouts
 INSTALLS += target
-message($$[target])
