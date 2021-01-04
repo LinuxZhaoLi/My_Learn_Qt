@@ -7,7 +7,6 @@
 
 class ScribbleArea; // 涂鸦区域
 
-//! [0]
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -16,7 +15,7 @@ public:
     MainWindow();
 
 protected:
-    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;  // 关闭时间，重写
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;  // 关闭时间，重写 QCloseEvent类包含描述关闭事件的参数。
 
 private slots:
     void open();

@@ -21,13 +21,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="5">
-    <widget class="QDial" name="dial_7">
-     <property name="notchesVisible">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="4">
     <widget class="QDial" name="dial_6">
      <property name="notchesVisible">
@@ -65,6 +58,16 @@
    </item>
    <item row="0" column="0">
     <widget class="QDial" name="dial_2">
+     <property name="styleSheet">
+      <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(9, 41, 4, 255), stop:0.085 rgba(2, 79, 0, 255), stop:0.19 rgba(50, 147, 22, 255), stop:0.275 rgba(236, 191, 49, 255), stop:0.39 rgba(243, 61, 34, 255), stop:0.555 rgba(135, 81, 60, 255), stop:0.667 rgba(121, 75, 255, 255), stop:0.825 rgba(164, 255, 244, 255), stop:0.885 rgba(104, 222, 71, 255), stop:1 rgba(93, 128, 0, 255));</string>
+     </property>
+     <property name="notchesVisible">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QDial" name="dial_7">
      <property name="notchesVisible">
       <bool>true</bool>
      </property>
